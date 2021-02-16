@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity WebGL Player | WebGL Test AR</title>
+  <script src="js/lib/aframe.min.js"></script>
+  <script src="js/lib/aframe-ar.js"></script>
+  <script src="Build/UnityLoader.js"></script>
+  <script src="js/app.js"></script>
+  <style>
+    .not-supported {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      z-index: 100000000;
+
+    }
+
+    .not-supported-text,
+    .invitation {
+      color: white;
+      font-size: 20px;
+      margin-bottom: 15px;
+      font-family: arial;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .not-supported-text a {
+      color: white
+    }
+
+    .chrome-logo {
+      margin-top: 10px;
+    }
+
+    #refresh {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      height: 45px;
+      width: 45px;
+      z-index: 10000000000;
+    }
+  </style>
+</head>
+
+<body style="margin: 0px; overflow: hidden;">
+  <a-scene embedded arjs vr-mode-ui="enabled: false" copycanvas>
+    <div id="unityContainer" style="z-index: 2"></div>
+    <!-- <a-marker preset="hiro"> <a-box></a-box> </a-marker> -->
+    <!-- <a-marker type="pattern" url="data/markers/pattern-arjs.patt"><a-box></a-box></a-marker> -->
+    <!-- <a-marker type="pattern" url="data/markers/test.patt" markercontroller="name : hiro"></a-marker> -->
+
+    <a-marker type="pattern" url="data/markers\Car01.patt" markercontroller="name : Car01"></a-marker>
+    <a-marker type="pattern" url="data/markers\CarGS8.patt" markercontroller="name : CarGS8"></a-marker>
+    <a-marker type="pattern" url="data/markers\Car_GS8.patt" markercontroller="name : Car_GS8"></a-marker>
+    <a-marker type="pattern" url="data/markers\Car_GS82.patt" markercontroller="name : Car_GS82"></a-marker>
+    <a-marker type="pattern" url="data/markers\Hiro.patt" markercontroller="name : Hiro"></a-marker>
+    <a-marker type="pattern" url="data/markers\Nutty.patt" markercontroller="name : Nutty"></a-marker>
+
+    <a-entity camera cameratransform></a-entity>
+  </a-scene>
+  <img id="refresh" src="refresh.png" onclick="refreshPage()" />
+  <div style="display:none;" id="not-supported" class="not-supported">
+    <div class="invitation">
+      Join us on the 21st of February 2021 for our NEW showroom virtual opening ceremony!
+    </div>
+    <div class="not-supported-text">
+      Your browser does not support WebGL, Please use <a
+        href="intent://gacjordan.com/ar/#Intent;scheme=http;package=com.android.chrome;end">Google Chrome</a>
+    </div>
+    <a class="chrome-logo" href="intent://gacjordan.com/ar/#Intent;scheme=http;package=com.android.chrome;end"><img
+        src="chrome.png" style="height:50px; width:50px;" /></a>
+  </div>
+  <script>
+    var refreshButton = document.getElementById('refresh');
+    refreshButton.onclick = function () {
+      window.location.reload()
+    };
+    var ua = navigator.userAgent;
+    // var element = document.getElementById(id);
+    var isMobile = /Android|webOS|iPhone|iPad|iPod/i.test(ua);
+    console.log(navigator.platform, 'sdsdsdsd')
+    if (isMobile) {
+      // some code for mobile
+      console.log("on mobile: "); // display the platform you're on.
+      console.log(navigator.platform); // display the platform you're on.
+      console.log('vendor'); // display the platform you're on.
+      console.log(navigator.vendor); // display the platform you're on.
+
+      var isChrome = (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor));
+      var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+      var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      if (isChrome != true && (isSafari && iOS) != true) {
+        var notSupported = document.getElementById('not-supported');
+        console.log('not-supported');
+        notSupported.style.display = "flex"
+      }
+      var isSamsungBrowser = navigator.userAgent.match(/SamsungBrowser/i)
+      if (isSamsungBrowser) {
+        var notSupported = document.getElementById('not-supported');
+        console.log('not-supported');
+        notSupported.style.display = "flex"
+      }
+      // var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+      // var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      // if((isSafari && iOS) != true){
+      //   var notSupported = document.getElementById('not-supported');
+      //   notSupported.style.display = "flex"
+      // }        
+    }
+
+  </script>
+</body>
+
+</html>
